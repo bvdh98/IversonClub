@@ -1,38 +1,48 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap');
+
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+#image_container img{
+  width: 100%;
+  height:400px;
+  object-fit: cover;
+  object-position: 90% 35%;
+}
+
+#header_container{
   text-align: center;
+  margin-top: 1rem;
+  font-family: 'Calligraffitti', cursive;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#header_container h1{
+  margin-top: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#shoe_list{
+  justify-content: space-around;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#shoe_list .card{
+  width: 20%;
+  margin: 1rem;
+}
+
+.add_to_cart_bttn{
+  width: 15%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.cart_icon{
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card img{
+  width: 100%;
 }
