@@ -6,7 +6,7 @@ import './Signup.css';
 
 const Login = () => {
     //grabbing sign-up function from context
-    const {login, currentUser} = useAuth();
+    const {login} = useAuth();
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState('');

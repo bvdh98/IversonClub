@@ -7,18 +7,15 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <Container fluid>
-      {/* <Banner />
-      <div id="shoe_col" className="col-sm-12 border border-primary">
-        <ShoeList />
-      </div> */}
       <Router>
         <AuthProvider>
           <Routes>
-            <Route exact path="/" element={<ShoeList/>}/>
+            <Route exact path="/" element={<PrivateRoute/>}/>
             <Route exact path="/signup" element={<Signup/>}/>
             <Route exact path="/login" element={<Login/>}/>
           </Routes>

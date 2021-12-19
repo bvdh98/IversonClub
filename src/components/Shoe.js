@@ -8,8 +8,8 @@ const Shoe = ({ shoeData }) => {
     return shoe.media.imageUrl != null;
   });
   return cleanShoeList.map(shoe =>
-    <div className="card" id={`shoe_card_${shoe.id}`}>
-      <h5 class="card-title">
+    <div key={shoe.id} className="card" id={`shoe_card_${shoe.id}`}>
+      <h5 className="card-title">
         {shoe.title}
       </h5>
       <img

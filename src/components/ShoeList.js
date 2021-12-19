@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Banner from "./Banner";
+import MainNavbar from "./MainNavBar";
 import Shoe from "./Shoe";
 import useFetch from './useFetch';
 
@@ -16,6 +17,7 @@ const ShoeList = () => {
 
   return (
     <>
+      <MainNavbar/>
       <Banner/>
       <div id="shoe_list" className="row">
         {isPending && <div>Loading...</div>}

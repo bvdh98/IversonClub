@@ -6,7 +6,7 @@ import './Signup.css';
 
 const Signup = () => {
     //grabbing sign-up function from context
-    const {signup, currentUser} = useAuth();
+    const {signup} = useAuth();
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmPassRef = useRef();
