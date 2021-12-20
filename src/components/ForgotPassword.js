@@ -1,54 +1,48 @@
 import { Alert } from "react-bootstrap";
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
+import { Link} from "react-router-dom";
 import './Signup.css';
 
-const Login = () => {
-    //grabbing sign-up function from context
-    const {login} = useAuth();
+const ForgotPassword = () => {
     const emailRef = useRef();
-    const passwordRef = useRef();
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
+    const {resetPassword} = useAuth();
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
             //set error back to empty string
             setError('');
+            setMessage('');
             setLoading(true);
-            await login(emailRef.current.value, passwordRef.current.value);
-            //if succesful login send user to main page
-            navigate("/");
+            await resetPassword(emailRef.current.value);
+            setMessage("check your email inbox for further instructions")
         }catch{
-            setError("failed to sign in");
+            setError("failed to reset password");
             console.log(error);
         }
         setLoading(false);
     }
-  return (
+    return (
     <div id="sign_up_container" className="card col-sm-6">
-      <h1>Log In</h1>
+      <h1>Password Reset</h1>
       {error && <Alert variant="danger">{error}</Alert>}
+      {message && <Alert variant="success">{message}</Alert>}
       <div className="form">
         <div className="form-control">
           <label htmlFor="email">Email:</label>
           <br />
           <input type="text" id="email" name="email" ref={emailRef}/>
         </div>
-        <div className="form-control">
-          <label htmlFor="password">Password:</label>
-          <br />
-          <input type="text" id="password" name="password" ref={passwordRef}/>
-        </div>
         {/* prevent user from trying to create multiple users at once */}
-        <button type="submit" disabled={loading} onClick={handleSubmit}>Log In</button>
+        <button type="submit" disabled={loading} onClick={handleSubmit}>Reset Password</button>
       </div>
-      <h4><Link to="/forgot-password">Forgot Password?</Link></h4>
+      <h4><Link to="/login">Login</Link></h4>
       <h4>Need an account? <Link to="/signup">Sign Up</Link></h4>
     </div>
-  );
-};
+    )
+}
 
-export default Login;
+export default ForgotPassword
