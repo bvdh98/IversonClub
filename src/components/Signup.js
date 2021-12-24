@@ -1,4 +1,4 @@
-import { Alert } from "react-bootstrap";
+import { Alert, Form, Button } from "react-bootstrap";
 import React, { useRef, useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import './Signup.css';
 
 const Signup = () => {
     //grabbing sign-up function from context
-    const {signup} = useAuth();
+  const {signup} = useAuth();
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmPassRef = useRef();
@@ -35,25 +35,23 @@ const Signup = () => {
     <div id="sign_up_container" className="card col-sm-6">
       <h1>Sign Up</h1>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="form">
-        <div className="form-control">
-          <label htmlFor="email">Email:</label>
-          <br />
-          <input type="text" id="email" name="email" ref={emailRef}/>
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Password:</label>
-          <br />
-          <input type="text" id="password" name="password" ref={passwordRef}/>
-        </div>
-        <div className="form-control">
-          <label htmlFor="password-confirm">Confirm Password:</label>
-          <br />
-          <input type="text" id="password-confirm" name="password-confirm" ref={confirmPassRef}/>
-        </div>
-        {/* prevent user from trying to create multiple users at once */}
-        <button type="submit" disabled={loading} onClick={handleSubmit}>Sign Up</button>
-      </div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group id="email" className="user_input_field">
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" ref={emailRef} required />
+        </Form.Group>
+        <Form.Group id="password" className="user_input_field">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" ref={passwordRef} required />
+        </Form.Group>
+        <Form.Group id="password-confirm" className="user_input_field">
+          <Form.Label>Password Confirmation</Form.Label>
+          <Form.Control type="password" ref={confirmPassRef} required />
+        </Form.Group>
+        <Button disabled={loading} className="" type="submit">
+          Sign Up
+        </Button>
+      </Form>
       <h4>Already have an account? <Link to="/login">Log in</Link></h4>
     </div>
   );

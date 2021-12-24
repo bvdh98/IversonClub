@@ -1,4 +1,4 @@
-import { Alert } from "react-bootstrap";
+import { Alert, Form, Button } from "react-bootstrap";
 import React, { useRef, useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Link} from "react-router-dom";
@@ -30,15 +30,15 @@ const ForgotPassword = () => {
       <h1>Password Reset</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {message && <Alert variant="success">{message}</Alert>}
-      <div className="form">
-        <div className="form-control">
-          <label htmlFor="email">Email:</label>
-          <br />
-          <input type="text" id="email" name="email" ref={emailRef}/>
-        </div>
-        {/* prevent user from trying to create multiple users at once */}
-        <button type="submit" disabled={loading} onClick={handleSubmit}>Reset Password</button>
-      </div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group id="email" className="user_input_field">
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" ref={emailRef} required />
+        </Form.Group>
+        <Button disabled={loading} className="" type="submit">
+          Reset Password
+        </Button>
+      </Form>
       <h4><Link to="/login">Login</Link></h4>
       <h4>Need an account? <Link to="/signup">Sign Up</Link></h4>
     </div>

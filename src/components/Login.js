@@ -1,4 +1,4 @@
-import { Alert } from "react-bootstrap";
+import { Alert, Form, Button } from "react-bootstrap";
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
@@ -31,20 +31,19 @@ const Login = () => {
     <div id="sign_up_container" className="card col-sm-6">
       <h1>Log In</h1>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="form">
-        <div className="form-control">
-          <label htmlFor="email">Email:</label>
-          <br />
-          <input type="text" id="email" name="email" ref={emailRef}/>
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Password:</label>
-          <br />
-          <input type="text" id="password" name="password" ref={passwordRef}/>
-        </div>
-        {/* prevent user from trying to create multiple users at once */}
-        <button type="submit" disabled={loading} onClick={handleSubmit}>Log In</button>
-      </div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group id="email" className="user_input_field">
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" ref={emailRef} required />
+        </Form.Group>
+        <Form.Group id="password" className="user_input_field">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" ref={passwordRef} required />
+        </Form.Group>
+        <Button disabled={loading} className="" type="submit">
+          Login
+        </Button>
+      </Form>
       <h4><Link to="/forgot-password">Forgot Password?</Link></h4>
       <h4>Need an account? <Link to="/signup">Sign Up</Link></h4>
     </div>
