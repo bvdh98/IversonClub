@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     login,
     signup,
     logout, 
-    resetPassword
+    resetPassword,
   };
   //once the user is confirmed (not loading) render the children
   return (

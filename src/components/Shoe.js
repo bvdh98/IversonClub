@@ -27,8 +27,8 @@ const Shoe = ({ shoeData }) => {
       <p>
         brand: {shoe.brand}
       </p>
-      <button type="button" className="add_to_cart_bttn btn btn-primary">
-        <Icon className="cart_icon" icon="mdi-light:cart" />
+      <button type="button" className="add_to_cart_bttn">
+        Add to cart
       </button>
     </div>
   );
