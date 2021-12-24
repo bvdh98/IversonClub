@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import MainNavbar from "./MainNavBar";
 import Shoe from "./Shoe";
 import useFetch from './useFetch';
+import "./ShoeList.css"
 
 
 const ShoeList = () => {
