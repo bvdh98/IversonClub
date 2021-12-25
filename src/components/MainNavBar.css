@@ -1,7 +1,14 @@
-#main_nav_bar{
-    justify-content: flex-start;
+#main_nav_bar {
+  justify-content: flex-start;
 }
 
-.user_email, .btn{
-    margin-left: 1rem;
+.user_email,
+.btn,
+.cart_icon {
+  margin-left: 1rem;
+}
+
+.cart_notification{
+  position: absolute;
+  top:-0.125rem;
 }

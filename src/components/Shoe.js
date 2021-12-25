@@ -1,12 +1,22 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { useShoppingCart } from "./contexts/ShoppingCartContext";
 
 const Shoe = ({ shoeData }) => {
   const shoeList = shoeData.results;
+  const { setCart, cart } = useShoppingCart();
   //shoe list without shoe with missing image
   const cleanShoeList = shoeList.filter(function(shoe) {
     return shoe.media.imageUrl != null;
   });
+  const addToCart = id => {
+    const shoe = cleanShoeList.filter(shoe => {
+      return shoe.id === id;
+    });
+    setCart([...cart, {shoe}]);
+    console.log(shoe);
+    console.log(cart);
+  };
   return cleanShoeList.map(shoe =>
     <div key={shoe.id} className="card" id={`shoe_card_${shoe.id}`}>
       <h5 className="card-title">
@@ -27,7 +37,7 @@ const Shoe = ({ shoeData }) => {
       <p>
         brand: {shoe.brand}
       </p>
-      <button type="button" className="add_to_cart_bttn">
+      <button type="button" className="add_to_cart_bttn" onClick={() => {addToCart(shoe.id)}}>
         Add to cart
       </button>
     </div>
