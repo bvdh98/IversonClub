@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import { ShoppingCartProvider } from "./components/contexts/ShoppingCartContext";
+import ShoppingCartList from "./components/ShoppingCartList";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route exact path="/" element={<PrivateRoute />} />
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/login" element={<Login />} />
+              <Route exact path="/shopping-cart" element={<ShoppingCartList/>}/>
               <Route
                 exact
                 path="/forgot-password"

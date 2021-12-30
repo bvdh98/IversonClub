@@ -10,7 +10,7 @@ const MainNavBar = () => {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {cart, setCart} = useShoppingCart();
+  const {state} = useShoppingCart();
   const handleLogOut = async(e) => {
     setError('');
     try{
@@ -32,13 +32,13 @@ const MainNavBar = () => {
         {currentUser && currentUser.email}
       </h4>
       <button className="btn btn-outline-success" type="button" onClick={handleLogOut}>Log Out</button>
-      <a href="">
+      <a href="/shopping-cart">
         <span>
           <Icon className="cart_icon" icon="mdi-light:cart" width={"2rem"}/>
         </span>
-        {cart.length > 0 && 
+        {state.shoes.length > 0 && 
         <span className= "cart_notification">
-          <Badge>{cart.length}</Badge>
+          <Badge>{state.shoes.length}</Badge>
         </span>}
       </a>
     </nav>
