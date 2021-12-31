@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useAuth } from "./contexts/AuthContext";
 import { useShoppingCart } from "./contexts/ShoppingCartContext";
 import { useNavigate } from "react-router-dom";
-import './MainNavBar.css';
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import "./MainNavBar.css";
 
 const MainNavBar = () => {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {state} = useShoppingCart();
+  const { state } = useShoppingCart();
   const handleLogOut = async(e) => {
     setError('');
     try{
@@ -22,26 +23,45 @@ const MainNavBar = () => {
     }
   }
   return (
-    <nav id="main_nav_bar" className="navbar navbar-light bg-light">
-      <Icon
-        className="user_icon_img"
-        icon="carbon:user-avatar-filled-alt"
-        width={"3rem"}
-      />
-      <h4 className="user_email">
-        {currentUser && currentUser.email}
-      </h4>
-      <button className="btn btn-outline-success" type="button" onClick={handleLogOut}>Log Out</button>
-      <a href="/shopping-cart">
-        <span>
-          <Icon className="cart_icon" icon="mdi-light:cart" width={"2rem"}/>
-        </span>
-        {state.shoes.length > 0 && 
-        <span className= "cart_notification">
-          <Badge>{state.shoes.length}</Badge>
-        </span>}
-      </a>
-    </nav>
+    <Navbar
+      id="main_nav_bar"
+      bg="dark"
+      variant="dark"
+      sticky="top"
+      expand="sm"
+      collapseOnSelect
+    >
+      <Navbar.Brand>
+        <Icon
+          className="user_icon_img"
+          icon="carbon:user-avatar-filled-alt"
+          width={"3rem"}
+        />
+      </Navbar.Brand>
+      <Navbar.Toggle />
+      <Navbar.Collapse>
+        <Nav>
+          <NavDropdown title={currentUser && currentUser.email}>
+            <NavDropdown.Item onClick={handleLogOut}>Log Out</NavDropdown.Item>
+          </NavDropdown>
+          <Nav.Link href="/shopping-cart">
+            <span>
+              <Icon
+                className="cart_icon"
+                icon="mdi-light:cart"
+                width={"2rem"}
+              />
+            </span>
+            {state.shoes.length > 0 &&
+              <span className="cart_notification">
+                <Badge>
+                  {state.shoes.length}
+                </Badge>
+              </span>}
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 

@@ -11,10 +11,19 @@ import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import { ShoppingCartProvider } from "./components/contexts/ShoppingCartContext";
 import ShoppingCartList from "./components/ShoppingCartList";
-
+//todo: navbar with dropdown menu
+//todo: hide api keys before psuhing to github
+//todo: paypal 
+//todo: save cart items on firebase
+//todo: quantity of shoes
+//todo: reusable login/signup form
+//todo: delete unused code and console logs
+//todo: fix update unmounted component error
+//todo: shoppingcartlist fix return duplicate elements
+//todo: shoe that costs 0
 function App() {
   return (
-    <Container fluid>
+    <div>
       <Router>
         <AuthProvider>
           <ShoppingCartProvider>
@@ -32,7 +41,7 @@ function App() {
           </ShoppingCartProvider>
         </AuthProvider>
       </Router>
-    </Container>
+    </div>
   );
 }
 

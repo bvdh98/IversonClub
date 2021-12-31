@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import MainNavbar from "./MainNavBar";
 import Shoe from "./Shoe";
 import useFetch from './useFetch';
+import { Container } from "react-bootstrap";
 import "./ShoeList.css"
 
 
@@ -18,7 +19,8 @@ const ShoeList = () => {
 
   return (
     <>
-      <MainNavbar/>
+    <MainNavbar/>
+      <Container fluid>
       <Banner/>
       <div id="shoe_list" className="row">
         {isPending && <div>Loading...</div>}
@@ -28,6 +30,7 @@ const ShoeList = () => {
             {error}
           </div>}
       </div>
+    </Container>
     </>
   );
 };

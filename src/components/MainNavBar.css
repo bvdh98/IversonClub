@@ -5,10 +5,14 @@
 .user_email,
 .btn,
 .cart_icon {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 
 .cart_notification{
   position: absolute;
-  top:-0.125rem;
+  top:-0.025rem;
+}
+
+.user_icon_img{
+  padding-left: 1rem;
 }
