@@ -17,6 +17,10 @@ const defaultState = {
   total: 0
 };
 
+const savedState = JSON.parse(localStorage.getItem("cart"));
+
+const initializer = () => (savedState ? savedState : defaultState);
+
 const reducer = (state, action) => {
   if (action.type === "add Shoe") {
     const newShoes = [...state.shoes, action.payload.shoe];
@@ -30,8 +34,7 @@ const reducer = (state, action) => {
 };
 
 export const ShoppingCartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, defaultState);
-  //save cart data to local storage
+  const [state, dispatch] = useReducer(reducer, defaultState, initializer);
   useEffect(
     () => {
       localStorage.setItem("cart", JSON.stringify(state));

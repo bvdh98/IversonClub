@@ -11,7 +11,8 @@ const MainNavBar = () => {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { state } = useShoppingCart();
+  const {state} = useShoppingCart();
+  const {shoes} = state;
   const handleLogOut = async(e) => {
     setError('');
     try{
@@ -52,10 +53,10 @@ const MainNavBar = () => {
                 width={"2rem"}
               />
             </span>
-            {state.shoes.length > 0 &&
+            {shoes.length > 0 &&
               <span className="cart_notification">
                 <Badge>
-                  {state.shoes.length}
+                  {shoes.length}
                 </Badge>
               </span>}
           </Nav.Link>

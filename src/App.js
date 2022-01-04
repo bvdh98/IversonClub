@@ -11,16 +11,22 @@ import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import { ShoppingCartProvider } from "./components/contexts/ShoppingCartContext";
 import ShoppingCartList from "./components/ShoppingCartList";
-//todo: navbar with dropdown menu
-//todo: hide api keys before psuhing to github
-//todo: paypal 
+//todo: hide api keys and paypal client id before psuhing to github MVP
+//todo: paypal MVP
 //todo: save cart items on firebase
 //todo: quantity of shoes
 //todo: reusable login/signup form
 //todo: delete unused code and console logs
 //todo: fix update unmounted component error
 //todo: shoppingcartlist fix return duplicate elements
-//todo: shoe that costs 0
+//todo: shoe that costs 0 MVP
+//center loading... heading
+//get rid of unused react boiler plate
+//implement remove from cart button on shoelist and checkout page
+//add more iverson images
+//dialog warning user that commerce page is fake MVP
+//warn user that passwords must be atleast 6 characters MVP
+//empty cart when something has been purchased MVP
 function App() {
   return (
     <div>

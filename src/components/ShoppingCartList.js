@@ -3,13 +3,13 @@ import "./ShoppingCartList.css";
 import { useNavigate } from "react-router-dom";
 import { useShoppingCart } from "./contexts/ShoppingCartContext";
 import { useState } from "react";
+import Paypal from "./Paypal";
 
 const ShoppingCartList = () => {
-  const saved = localStorage.getItem("cart");
-  const cartData = JSON.parse(saved);
+  const {state} = useShoppingCart();
   const navigate = useNavigate();
-  console.log(cartData);
-  const { shoes, total } = cartData;
+  const { shoes, total } = state;
+  const [checkout, setCheckout] = useState(false);
 
   const returnHome = () => {
     navigate("/");
@@ -34,13 +34,19 @@ const ShoppingCartList = () => {
             </div>
           </div>
         )}
-        <div className="total_container card col-sm-6">
-          <h5>
-            Total: $ {total}
-          </h5>
-          <button className="btn btn-primary col-sm-4">Check out</button>
-        </div>
-        <button className="btn btn-primary col-sm-2" id="back_button" onClick={returnHome}>
+        {checkout
+          ? Paypal
+          : <div className="total_container card col-sm-6">
+              <h5>
+                Total: $ {total}
+              </h5>
+              <button className="btn btn-primary col-sm-4" onClick={() =>setCheckout(true)}>Check out</button>
+            </div>}
+        <button
+          className="btn btn-primary col-sm-2"
+          id="back_button"
+          onClick={returnHome}
+        >
           Back
         </button>
       </div>
@@ -49,7 +55,11 @@ const ShoppingCartList = () => {
     return (
       <div className="cart_container">
         <h3>Your shopping cart is currently empty</h3>
-        <button className="btn btn-primary col-sm-2" id="back_button" onClick={returnHome}>
+        <button
+          className="btn btn-primary col-sm-2"
+          id="back_button"
+          onClick={returnHome}
+        >
           Back
         </button>
       </div>
