@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useContext,
-  useState,
   useEffect,
   useReducer
 } from "react";
@@ -19,6 +18,7 @@ const defaultState = {
 
 const savedState = JSON.parse(localStorage.getItem("cart"));
 
+//load state
 const initializer = () => (savedState ? savedState : defaultState);
 
 const reducer = (state, action) => {
@@ -35,6 +35,7 @@ const reducer = (state, action) => {
 
 export const ShoppingCartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState, initializer);
+  //save state
   useEffect(
     () => {
       localStorage.setItem("cart", JSON.stringify(state));

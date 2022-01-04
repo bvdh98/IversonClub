@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from "react";
-
+import { useShoppingCart } from "./contexts/ShoppingCartContext";
 export default function Paypal() {
   const paypal = useRef();
+  const {state} = useShoppingCart();
+  const {total} = state;
 
   useEffect(() => {
     window.paypal
@@ -9,14 +11,14 @@ export default function Paypal() {
         //sets up detail of transaction
         createOrder: (data, actions, err) => {
           return actions.order.create({
-            //immeadetly capture money from buyers
+            //immediately capture money from buyers
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "Cool looking table",
+                description: "Iverson basketball shoes",
                 amount: {
                   currency_code: "CAD",
-                  value: 650.0
+                  value: total
                 }
               }
             ]

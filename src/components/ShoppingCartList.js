@@ -35,7 +35,7 @@ const ShoppingCartList = () => {
           </div>
         )}
         {checkout
-          ? Paypal
+          ? <Paypal/>
           : <div className="total_container card col-sm-6">
               <h5>
                 Total: $ {total}
