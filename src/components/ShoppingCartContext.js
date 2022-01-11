@@ -1,9 +1,7 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer
-} from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { useAuth } from "./contexts/AuthContext";
+import {db} from "./firebase";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 
 const ShoppingCartContext = createContext();
 
@@ -35,10 +33,33 @@ const reducer = (state, action) => {
 
 export const ShoppingCartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState, initializer);
+  const { currentUser } = useAuth();
+
+  const uploadCartToFireBase = async () => {
+    const docRef = doc(db, "cartShoes", currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      await updateDoc(docRef, {
+        shoes: [...state.shoes],
+        total: state.total
+      });
+    } else {
+      const docRef = await setDoc(doc(db, "cartShoes", currentUser.uid), {
+        id: "test",
+        shoes: [...state.shoes],
+        total: 0
+      });
+    }
+  };
+
   //save state
   useEffect(
     () => {
       localStorage.setItem("cart", JSON.stringify(state));
+      if (state.shoes.length > 0) {
+        console.log(db);
+        //uploadCartToFireBase();
+      }
     },
     [state]
   );

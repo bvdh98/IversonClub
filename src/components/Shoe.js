@@ -1,7 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { useShoppingCart } from "./contexts/ShoppingCartContext";
-import { useState } from "react";
+import { useShoppingCart } from "./ShoppingCartContext";
 
 const Shoe = ({ shoeData }) => {
   const shoeList = shoeData.results;
@@ -17,7 +16,7 @@ const Shoe = ({ shoeData }) => {
     const shoeArrItem = shoe[0];
     dispatch({
       type: "add Shoe",
-      payload: { shoe: shoeArrItem, total: shoeArrItem.retailPrice }
+      payload: { shoe: shoeArrItem, total: shoeArrItem.retailPrice}
     });
   };
 

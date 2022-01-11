@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useAuth } from "./contexts/AuthContext";
-import { useShoppingCart } from "./contexts/ShoppingCartContext";
+import { useShoppingCart } from "./ShoppingCartContext";
 import { useNavigate } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./MainNavBar.css";

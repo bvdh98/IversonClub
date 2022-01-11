@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
-import { ShoppingCartProvider } from "./components/contexts/ShoppingCartContext";
+import { ShoppingCartProvider } from "./components/ShoppingCartContext";
 import ShoppingCartList from "./components/ShoppingCartList";
 //todo: hide api keys and paypal client id before psuhing to github MVP
 //todo: paypal MVP
@@ -27,6 +27,8 @@ import ShoppingCartList from "./components/ShoppingCartList";
 //dialog warning user that commerce page is fake MVP
 //warn user that passwords must be atleast 6 characters MVP
 //empty cart when something has been purchased MVP
+//associate local storage with current user
+//for production: If authenticated from firebase: Change allow read, write: if false; to request.auth != null;
 function App() {
   return (
     <div>

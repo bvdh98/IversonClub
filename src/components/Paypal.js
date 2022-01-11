@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import { useShoppingCart } from "./contexts/ShoppingCartContext";
-export default function Paypal() {
+import { useShoppingCart } from "./ShoppingCartContext";
+const Paypal = ({setShow}) => {
   const paypal = useRef();
-  const {state} = useShoppingCart();
-  const {total} = state;
+  const { state } = useShoppingCart();
+  const { total } = state;
 
   useEffect(() => {
     window.paypal
@@ -24,10 +24,11 @@ export default function Paypal() {
             ]
           });
         },
-        //Captures the funds from the transaction and shows a message to the buyer to let them know the transaction is successful. 
+        //Captures the funds from the transaction and shows a message to the buyer to let them know the transaction is successful.
         //The method is called after the buyer approves the transaction on paypal.com.
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
+          setShow(true);
           console.log(order);
         },
         onError: err => {
@@ -42,4 +43,6 @@ export default function Paypal() {
       <div ref={paypal} />
     </div>
   );
-}
+};
+
+export default Paypal;
