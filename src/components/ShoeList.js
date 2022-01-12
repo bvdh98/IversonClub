@@ -1,37 +1,51 @@
-import React, { useState, useEffect } from "react";
-import Banner from "./Banner";
-import MainNavbar from "./MainNavBar";
-import Shoe from "./Shoe";
-import useFetch from './useFetch';
-import { Container } from "react-bootstrap";
-import "./ShoeList.css"
+import React from "react";
+import { Icon } from "@iconify/react";
+import { useShoppingCart } from "./ShoppingCartContext";
 
+const ShoeList = ({ shoeData }) => {
+  const shoeList = shoeData;
+  const { dispatch } = useShoppingCart();
+  const addToCart = id => {
+    const shoe = shoeList.filter(shoe => {
+      return shoe.id === id;
+    });
+    const shoeArrItem = shoe[0];
+    dispatch({
+      type: "add Shoe",
+      payload: { shoe: shoeArrItem, total: shoeArrItem.retailPrice }
+    });
+  };
 
-const ShoeList = () => {
-  const endPoint = "https://v1-sneakers.p.rapidapi.com";
-  const key = "6a0397c1d5msh54f19efef6df16fp1e2f1ejsn0f6c84915369";
-  const limit = "100";
-  const name = "iverson";
-  const url = `${endPoint}/v1/sneakers?limit=${limit}&name=${name}`;
-
-  const { data, isPending, error } = useFetch(url,key);
-  console.log(data);
-
-  return (
-    <>
-    <MainNavbar/>
-      <Container fluid>
-      <Banner/>
-      <div id="shoe_list" className="row">
-        {isPending && <div>Loading...</div>}
-        {data && <Shoe shoeData={data}/>}
-        {error &&
-          <div>
-            {error}
-          </div>}
-      </div>
-    </Container>
-    </>
+  return shoeList.map(shoe =>
+    <div key={shoe.id} className="card" id={`shoe_card_${shoe.id}`}>
+      <h5 className="card-title">
+        {shoe.title}
+      </h5>
+      <img
+        className="card-img-top"
+        src={shoe.media.imageUrl}
+        alt="image of iverson shoe"
+      />
+      <div className="card-body" />
+      <p>
+        retail price: {shoe.retailPrice}
+      </p>
+      <p>
+        colorway: {shoe.colorway}
+      </p>
+      <p>
+        brand: {shoe.brand}
+      </p>
+      <button
+        type="button"
+        className="add_to_cart_bttn"
+        onClick={() => {
+          addToCart(shoe.id);
+        }}
+      >
+        Add to cart
+      </button>
+    </div>
   );
 };
 

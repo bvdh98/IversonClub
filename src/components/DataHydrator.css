@@ -17,11 +17,11 @@
     margin-top: 1rem;
   }
   
-  #shoe_list{
+  #data_hydrator{
     justify-content: space-around;
   }
   
-  #shoe_list .card{
+  #data_hydrator .card{
     width: 20%;
     margin: 1rem;
   }

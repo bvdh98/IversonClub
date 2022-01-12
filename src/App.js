@@ -2,7 +2,7 @@ import "./App.css";
 import "./components/Banner.js";
 import Banner from "./components/Banner.js";
 import { AuthProvider } from "./components/contexts/AuthContext";
-import ShoeList from "./components/ShoeList";
+import ShoeList from "./components/DataHydrator";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { Container } from "react-bootstrap";
@@ -19,7 +19,6 @@ import ShoppingCartList from "./components/ShoppingCartList";
 //todo: delete unused code and console logs
 //todo: fix update unmounted component error
 //todo: shoppingcartlist fix return duplicate elements
-//todo: shoe that costs 0 MVP
 //center loading... heading
 //get rid of unused react boiler plate
 //implement remove from cart button on shoelist and checkout page
