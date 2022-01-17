@@ -39,7 +39,8 @@ const getTotal = shoes => {
   let total = 0;
   shoes.map(shoe => {
     if (shoe.duplicates > 0) {
-      total += shoe.retailPrice * shoe.duplicates;
+      //shoe duplicates + 1 = total amount of that shoe type ie: 1 shoe and 1 duplicate = 2 total shoes
+      total += shoe.retailPrice * (shoe.duplicates + 1);
     } else {
       total += shoe.retailPrice;
     }
@@ -49,12 +50,11 @@ const getTotal = shoes => {
 
 const reducer = (state, action) => {
   if (action.type === "add Shoe") {
-    console.log(state.shoes);
     const newShoes = getShoesWithNoDuplicates(
       state.shoes,
       action.payload.shoes[0]
     );
-    const newTotal = getTotal(state.shoes);
+    const newTotal = getTotal(newShoes);
     uploadCartToFireBase(newShoes, newTotal, action.payload.userId);
     return {
       ...state,
@@ -97,7 +97,6 @@ export const ShoppingCartProvider = ({ children }) => {
       const docRef = doc(db, "cartShoes", currentUser.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log(docSnap.data());
         dispatch({
           type: "loaded cart",
           payload: {

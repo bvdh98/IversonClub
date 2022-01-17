@@ -33,7 +33,7 @@ const ShoppingCartList = () => {
             </div>
             <div className="quantity_and_price_container col-sm-6">
               <h5>
-                quantity: {shoe.duplicates}
+                quantity: {shoe.duplicates + 1}
               </h5>
               <h5>
                 price: ${shoe.retailPrice}
