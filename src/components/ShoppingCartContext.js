@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState
+} from "react";
 import { useAuth } from "./contexts/AuthContext";
-import {db} from "./firebase";
+import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 
 const ShoppingCartContext = createContext();
@@ -14,14 +20,50 @@ const defaultState = {
   total: 0
 };
 
-const savedState = JSON.parse(localStorage.getItem("cart"));
+const getShoesWithNoDuplicates = (shoes, addedShoe) => {
+  let duplicates = 0;
+  shoes.map(shoe => {
+    if (shoe.id === addedShoe.id) {
+      duplicates++;
+      shoe.duplicates++;
+    }
+  });
+  if (duplicates > 0) {
+    return shoes;
+  } else {
+    return [...shoes, addedShoe];
+  }
+};
 
-//load state
-const initializer = () => (savedState ? savedState : defaultState);
+const getTotal = shoes => {
+  let total = 0;
+  shoes.map(shoe => {
+    if (shoe.duplicates > 0) {
+      total += shoe.retailPrice * shoe.duplicates;
+    } else {
+      total += shoe.retailPrice;
+    }
+  });
+  return total;
+};
 
 const reducer = (state, action) => {
   if (action.type === "add Shoe") {
-    const newShoes = [...state.shoes, action.payload.shoe];
+    console.log(state.shoes);
+    const newShoes = getShoesWithNoDuplicates(
+      state.shoes,
+      action.payload.shoes[0]
+    );
+    const newTotal = getTotal(state.shoes);
+    uploadCartToFireBase(newShoes, newTotal, action.payload.userId);
+    return {
+      ...state,
+      shoes: newShoes,
+      total: newTotal
+    };
+  }
+  if (action.type === "loaded cart") {
+    const newShoes = [...state.shoes, ...action.payload.shoes];
     const newTotal = state.total + action.payload.total;
     return {
       ...state,
@@ -31,38 +73,42 @@ const reducer = (state, action) => {
   }
 };
 
+const uploadCartToFireBase = async (newShoes, newTotal, userId) => {
+  const docRef = doc(db, "cartShoes", userId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    await updateDoc(docRef, {
+      shoes: newShoes,
+      total: newTotal
+    });
+  } else {
+    await setDoc(doc(db, "cartShoes", userId), {
+      shoes: newShoes,
+      total: newTotal
+    });
+  }
+};
+
 export const ShoppingCartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, defaultState, initializer);
   const { currentUser } = useAuth();
-
-  const uploadCartToFireBase = async () => {
-    const docRef = doc(db, "cartShoes", currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      await updateDoc(docRef, {
-        shoes: [...state.shoes],
-        total: state.total
-      });
-    } else {
-      const docRef = await setDoc(doc(db, "cartShoes", currentUser.uid), {
-        id: "test",
-        shoes: [...state.shoes],
-        total: 0
-      });
-    }
-  };
-
-  //save state
-  useEffect(
-    () => {
-      localStorage.setItem("cart", JSON.stringify(state));
-      if (state.shoes.length > 0) {
-        console.log(db);
-        //uploadCartToFireBase();
+  const [state, dispatch] = useReducer(reducer, defaultState);
+  useEffect(() => {
+    (async () => {
+      const docRef = doc(db, "cartShoes", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log(docSnap.data());
+        dispatch({
+          type: "loaded cart",
+          payload: {
+            shoes: docSnap.data().shoes,
+            total: docSnap.data().total,
+            userId: currentUser.uid
+          }
+        });
       }
-    },
-    [state]
-  );
+    })();
+  }, []);
   const value = { state, dispatch };
   return (
     <ShoppingCartContext.Provider value={value}>

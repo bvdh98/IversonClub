@@ -53,12 +53,11 @@ const MainNavBar = () => {
                 width={"2rem"}
               />
             </span>
-            {shoes.length > 0 &&
-              <span className="cart_notification">
-                <Badge>
-                  {shoes.length}
-                </Badge>
-              </span>}
+            <span className="cart_notification">
+              <Badge>
+                {/* {shoes.length} */}
+              </Badge>
+            </span>
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

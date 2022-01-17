@@ -3,7 +3,7 @@ import "./ShoppingCartList.css";
 import { useNavigate } from "react-router-dom";
 import { useShoppingCart } from "./ShoppingCartContext";
 import { useState } from "react";
-import { Modal,Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import Paypal from "./Paypal";
 
 const ShoppingCartList = () => {
@@ -14,6 +14,7 @@ const ShoppingCartList = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [checkout, setCheckout] = useState(false);
+  console.log(state);
 
   const returnHome = () => {
     navigate("/");
@@ -31,7 +32,9 @@ const ShoppingCartList = () => {
               <img src={shoe.media.imageUrl} />
             </div>
             <div className="quantity_and_price_container col-sm-6">
-              <h5>quantity: </h5>
+              <h5>
+                quantity: {shoe.duplicates}
+              </h5>
               <h5>
                 price: ${shoe.retailPrice}
               </h5>

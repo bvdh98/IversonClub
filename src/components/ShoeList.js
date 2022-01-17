@@ -1,8 +1,10 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useShoppingCart } from "./ShoppingCartContext";
+import { useAuth } from "./contexts/AuthContext";
 
 const ShoeList = ({ shoeData }) => {
+  const {currentUser} = useAuth();
   const shoeList = shoeData;
   const { dispatch } = useShoppingCart();
   const addToCart = id => {
@@ -12,7 +14,7 @@ const ShoeList = ({ shoeData }) => {
     const shoeArrItem = shoe[0];
     dispatch({
       type: "add Shoe",
-      payload: { shoe: shoeArrItem, total: shoeArrItem.retailPrice }
+      payload: { shoes: shoe, total: shoeArrItem.retailPrice, userId: currentUser.uid }
     });
   };
 

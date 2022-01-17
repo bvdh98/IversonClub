@@ -28,6 +28,8 @@ import ShoppingCartList from "./components/ShoppingCartList";
 //empty cart when something has been purchased MVP
 //associate local storage with current user
 //for production: If authenticated from firebase: Change allow read, write: if false; to request.auth != null;
+//make shoppingcart more DRY
+//fix uid error on login page -mvp
 function App() {
   return (
     <div>
