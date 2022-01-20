@@ -16,6 +16,7 @@ export const useShoppingCart = () => {
 };
 
 const defaultState = {
+  isPending: true,
   shoes: [],
   total: 0
 };
@@ -67,14 +68,18 @@ const reducer = (state, action) => {
     const newTotal = state.total + action.payload.total;
     return {
       ...state,
+      isPending: false,
       shoes: newShoes,
       total: newTotal
     };
   }
 
-  if(action.type === "empty cart"){
-    uploadCartToFireBase([],0,action.payload.userId)
-    return defaultState;
+  if (action.type === "empty cart") {
+    uploadCartToFireBase([], 0, action.payload.userId);
+    return {
+      ...defaultState,
+      isPending: false
+    };
   }
 };
 
