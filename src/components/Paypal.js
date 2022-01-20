@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from "react";
+import { useAuth } from "./contexts/AuthContext";
 import { useShoppingCart } from "./ShoppingCartContext";
-const Paypal = ({setShow}) => {
+const Paypal = ({ setShow, setOrderFulfilled }) => {
   const paypal = useRef();
-  const { state } = useShoppingCart();
+  const { state, dispatch } = useShoppingCart();
   const { total } = state;
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     window.paypal
@@ -29,6 +31,13 @@ const Paypal = ({setShow}) => {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           setShow(true);
+          setOrderFulfilled(true);
+          dispatch({
+            type: "empty cart",
+            payload: {
+              userId: currentUser.uid
+            }
+          });
           console.log(order);
         },
         onError: err => {

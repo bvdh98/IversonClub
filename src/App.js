@@ -29,7 +29,7 @@ import ShoppingCartList from "./components/ShoppingCartList";
 //associate local storage with current user
 //for production: If authenticated from firebase: Change allow read, write: if false; to request.auth != null;
 //make shoppingcart more DRY
-//fix uid error on login page -mvp
+//fix uid error on login page and uid error on shoelist page -mvp
 //bug: when you click on add to cart twice an inncorrect amount of shoes is added to the cart
 function App() {
   return (

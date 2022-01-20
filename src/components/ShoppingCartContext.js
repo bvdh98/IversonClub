@@ -71,6 +71,11 @@ const reducer = (state, action) => {
       total: newTotal
     };
   }
+
+  if(action.type === "empty cart"){
+    uploadCartToFireBase([],0,action.payload.userId)
+    return defaultState;
+  }
 };
 
 const uploadCartToFireBase = async (newShoes, newTotal, userId) => {
