@@ -1,4 +1,4 @@
-import { Alert, Form, Button } from "react-bootstrap";
+import { Alert, Form, Button, Modal } from "react-bootstrap";
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
@@ -11,6 +11,8 @@ const Login = () => {
     const passwordRef = useRef();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(true);
+    const handleClose = () => setShow(false);
     const navigate = useNavigate();
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -29,6 +31,18 @@ const Login = () => {
     }
   return (
     <div id="sign_up_container" className="card col-sm-6">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Important:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Iverson Club is a fake store. It was intended to be a personal project and nothing more.</Modal.Body>
+        <Modal.Body>Please do not purchase any of the products listed, since they won`t be shipped to you.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <h1>Log In</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
