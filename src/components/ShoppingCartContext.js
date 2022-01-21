@@ -50,6 +50,9 @@ const getTotal = shoes => {
 };
 
 const reducer = (state, action) => {
+  if (action.type === "new user") {
+    return { ...defaultState, isPending: false };
+  }
   if (action.type === "add Shoe") {
     const newShoes = getShoesWithNoDuplicates(
       state.shoes,
@@ -114,6 +117,10 @@ export const ShoppingCartProvider = ({ children }) => {
             total: docSnap.data().total,
             userId: currentUser.uid
           }
+        });
+      } else {
+        dispatch({
+          type: "new user"
         });
       }
     })();
