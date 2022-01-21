@@ -107,21 +107,24 @@ export const ShoppingCartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
   useEffect(() => {
     (async () => {
-      const docRef = doc(db, "cartShoes", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        dispatch({
-          type: "loaded cart",
-          payload: {
-            shoes: docSnap.data().shoes,
-            total: docSnap.data().total,
-            userId: currentUser.uid
-          }
-        });
-      } else {
-        dispatch({
-          type: "new user"
-        });
+      //check if user is signed in
+      if (currentUser) {
+        const docRef = doc(db, "cartShoes", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          dispatch({
+            type: "loaded cart",
+            payload: {
+              shoes: docSnap.data().shoes,
+              total: docSnap.data().total,
+              userId: currentUser.uid
+            }
+          });
+        } else {
+          dispatch({
+            type: "new user"
+          });
+        }
       }
     })();
   }, []);
