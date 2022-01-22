@@ -39,7 +39,6 @@ const Signup = () => {
         console.log(error);
       }
     }
-    setLoading(false);
   };
   return (
     <div id="sign_up_container" className="card col-sm-6">
