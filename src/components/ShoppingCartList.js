@@ -14,7 +14,6 @@ const ShoppingCartList = () => {
   const handleClose = () => setShow(false);
   const [orderFulfilled, setOrderFulfilled] = useState(false);
   const [checkout, setCheckout] = useState(false);
-  console.log(state);
 
   const returnHome = () => {
     navigate("/");

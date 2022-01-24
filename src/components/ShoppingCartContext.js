@@ -3,7 +3,6 @@ import React, {
   useContext,
   useEffect,
   useReducer,
-  useState
 } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { db } from "./firebase";
@@ -50,6 +49,9 @@ const getTotal = shoes => {
 };
 
 const reducer = (state, action) => {
+  if(action.type === "log out"){
+    return {defaultState};
+  }
   if (action.type === "new user") {
     return { ...defaultState, isPending: false };
   }
@@ -76,7 +78,6 @@ const reducer = (state, action) => {
       total: newTotal
     };
   }
-
   if (action.type === "empty cart") {
     uploadCartToFireBase([], 0, action.payload.userId);
     return {
@@ -105,7 +106,9 @@ const uploadCartToFireBase = async (newShoes, newTotal, userId) => {
 export const ShoppingCartProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(reducer, defaultState);
+  console.log(state);
   useEffect(() => {
+    //remove cart state here?
     (async () => {
       //check if user is signed in
       if (currentUser) {
