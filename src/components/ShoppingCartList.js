@@ -21,7 +21,6 @@ const ShoppingCartList = () => {
   return (
     <>
       <div className="cart_container">
-        {isPending && <h3>Loading...</h3>}
         {shoes.length > 0 && (
           <>
             <h1>Shopping Cart</h1>
@@ -59,7 +58,7 @@ const ShoppingCartList = () => {
             </button>
           </>
         )}
-        {shoes.length === 0 && !isPending && (
+        {shoes.length === 0 && (
           <div className="cart_container">
             <h3>Your shopping cart is currently empty</h3>
             <button

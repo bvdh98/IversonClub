@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
@@ -49,9 +44,6 @@ const getTotal = shoes => {
 };
 
 const reducer = (state, action) => {
-  if(action.type === "log out"){
-    return {defaultState};
-  }
   if (action.type === "new user") {
     return { ...defaultState, isPending: false };
   }
@@ -65,7 +57,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       shoes: newShoes,
-      total: newTotal
+      total: newTotal,
+      isPending: false
     };
   }
   if (action.type === "loaded cart") {
@@ -73,6 +66,7 @@ const reducer = (state, action) => {
     const newTotal = state.total + action.payload.total;
     return {
       ...state,
+      hasLoadedUserData: true,
       isPending: false,
       shoes: newShoes,
       total: newTotal
@@ -107,30 +101,32 @@ export const ShoppingCartProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(reducer, defaultState);
   console.log(state);
-  useEffect(() => {
-    //remove cart state here?
-    (async () => {
-      //check if user is signed in
-      if (currentUser) {
-        const docRef = doc(db, "cartShoes", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          dispatch({
-            type: "loaded cart",
-            payload: {
-              shoes: docSnap.data().shoes,
-              total: docSnap.data().total,
-              userId: currentUser.uid
-            }
-          });
-        } else {
-          dispatch({
-            type: "new user"
-          });
+  useEffect(
+    () => {
+      (async () => {
+        //check if user is signed in
+        if (currentUser) {
+          const docRef = doc(db, "cartShoes", currentUser.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            dispatch({
+              type: "loaded cart",
+              payload: {
+                shoes: docSnap.data().shoes,
+                total: docSnap.data().total,
+                userId: currentUser.uid
+              }
+            });
+          } else {
+            dispatch({
+              type: "new user"
+            });
+          }
         }
-      }
-    })();
-  }, []);
+      })();
+    },
+    [currentUser]
+  );
   const value = { state, dispatch };
   return (
     <ShoppingCartContext.Provider value={value}>

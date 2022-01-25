@@ -18,7 +18,6 @@ const MainNavBar = () => {
     setError('');
     try{
       await logout();
-      dispatch({type:"log out"});
       navigate('/login');
     }
     catch{
@@ -46,22 +45,8 @@ const MainNavBar = () => {
         <Nav>
           <NavDropdown title={currentUser && currentUser.email}>
             <NavDropdown.Item onClick={handleLogOut}>Log Out</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => navigate('/shopping-cart')}>Your Shopping Cart</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="/shopping-cart">
-            <span>
-              <Icon
-                className="cart_icon"
-                icon="mdi-light:cart"
-                width={"2rem"}
-              />
-            </span>
-            <span className="cart_notification">
-              <Badge>
-                {/* {shoes.length > 0 && 
-                  shoes.length} */}
-              </Badge>
-            </span>
-          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
