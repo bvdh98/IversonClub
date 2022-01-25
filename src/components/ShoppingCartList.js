@@ -9,7 +9,7 @@ import Paypal from "./Paypal";
 const ShoppingCartList = () => {
   const { state } = useShoppingCart();
   const navigate = useNavigate();
-  const { shoes, total, isPending } = state;
+  const { shoes, total} = state;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [orderFulfilled, setOrderFulfilled] = useState(false);

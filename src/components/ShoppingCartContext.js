@@ -10,7 +10,6 @@ export const useShoppingCart = () => {
 };
 
 const defaultState = {
-  isPending: true,
   shoes: [],
   total: 0
 };
@@ -45,7 +44,7 @@ const getTotal = shoes => {
 
 const reducer = (state, action) => {
   if (action.type === "new user") {
-    return { ...defaultState, isPending: false };
+    return { ...defaultState};
   }
   if (action.type === "add Shoe") {
     const newShoes = getShoesWithNoDuplicates(
@@ -58,7 +57,6 @@ const reducer = (state, action) => {
       ...state,
       shoes: newShoes,
       total: newTotal,
-      isPending: false
     };
   }
   if (action.type === "loaded cart") {
@@ -67,7 +65,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       hasLoadedUserData: true,
-      isPending: false,
       shoes: newShoes,
       total: newTotal
     };
@@ -75,8 +72,7 @@ const reducer = (state, action) => {
   if (action.type === "empty cart") {
     uploadCartToFireBase([], 0, action.payload.userId);
     return {
-      ...defaultState,
-      isPending: false
+      ...defaultState
     };
   }
 };
