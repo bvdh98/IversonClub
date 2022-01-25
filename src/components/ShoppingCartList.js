@@ -3,7 +3,7 @@ import "./ShoppingCartList.css";
 import { useNavigate } from "react-router-dom";
 import { useShoppingCart } from "./ShoppingCartContext";
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import PopUpModal from "./PopUpModal";
 import Paypal from "./Paypal";
 
 const ShoppingCartList = () => {
@@ -14,14 +14,15 @@ const ShoppingCartList = () => {
   const handleClose = () => setShow(false);
   const [orderFulfilled, setOrderFulfilled] = useState(false);
   const [checkout, setCheckout] = useState(false);
-
+  const title = "Purchase Successful";
+  const description = "Thank you for shopping with Iverson Club."
   const returnHome = () => {
     navigate("/");
   };
   return (
     <>
       <div className="cart_container">
-        {shoes.length > 0 && (
+        {shoes.length > 0 && 
           <>
             <h1>Shopping Cart</h1>
             {shoes.map((shoe) => (
@@ -57,8 +58,8 @@ const ShoppingCartList = () => {
               Back
             </button>
           </>
-        )}
-        {shoes.length === 0 && (
+        }
+        {shoes.length === 0 &&
           <div className="cart_container">
             <h3>Your shopping cart is currently empty</h3>
             <button
@@ -69,20 +70,10 @@ const ShoppingCartList = () => {
               Back
             </button>
           </div>
-        )}
-        {orderFulfilled && (
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Purchase Successful</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Thank you for shopping with Iverson Club.</Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        )}
+        }
+        {orderFulfilled && 
+          <PopUpModal show={show} handleClose={handleClose} title={title} description={description}/>
+        }
       </div>
     </>
   );  
