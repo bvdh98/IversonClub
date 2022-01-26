@@ -38,7 +38,6 @@ const Paypal = ({ setShow, setOrderFulfilled }) => {
               userId: currentUser.uid
             }
           });
-          console.log(order);
         },
         onError: err => {
           console.log(err);

@@ -96,7 +96,6 @@ const uploadCartToFireBase = async (newShoes, newTotal, userId) => {
 export const ShoppingCartProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(reducer, defaultState);
-  console.log(state);
   useEffect(
     () => {
       (async () => {

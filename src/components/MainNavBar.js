@@ -13,7 +13,6 @@ const MainNavBar = () => {
   const navigate = useNavigate();
   const {state, dispatch} = useShoppingCart();
   const {shoes} = state;
-  //console.log(state);
   const handleLogOut = async(e) => {
     setError('');
     try{
