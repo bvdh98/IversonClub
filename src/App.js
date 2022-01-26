@@ -1,11 +1,8 @@
 import "./App.css";
 import "./components/Banner.js";
-import Banner from "./components/Banner.js";
 import { AuthProvider } from "./components/contexts/AuthContext";
-import ShoeList from "./components/DataHydrator";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
