@@ -11,18 +11,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import { ShoppingCartProvider } from "./components/ShoppingCartContext";
 import ShoppingCartList from "./components/ShoppingCartList";
-//todo: hide api keys and paypal client id before psuhing to github MVP
-//todo: save cart items on firebase
-//todo: quantity of shoes
-//todo: reusable login/signup form
-//todo: delete unused code and console logs
-//center loading... heading
-//get rid of unused react boiler plate
-//add more iverson images
-//for production: If authenticated from firebase: Change allow read, write: if false; to request.auth != null;
-//make shoppingcart more DRY
-//add notification to navbar
-//remove shoes on shoppingcartlist page
 function App() {
   return (
     <div>
