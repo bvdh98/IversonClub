@@ -43,7 +43,7 @@ const getTotal = shoes => {
 };
 
 const reducer = (state, action) => {
-  if (action.type === "new user") {
+  if (action.type === "new user" || action.type === "log out") {
     return { ...defaultState};
   }
   if (action.type === "add Shoe") {
@@ -96,6 +96,7 @@ const uploadCartToFireBase = async (newShoes, newTotal, userId) => {
 export const ShoppingCartProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(reducer, defaultState);
+  console.log(state);
   useEffect(
     () => {
       (async () => {

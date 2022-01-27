@@ -12,11 +12,11 @@ const MainNavBar = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const {state, dispatch} = useShoppingCart();
-  const {shoes} = state;
   const handleLogOut = async(e) => {
     setError('');
     try{
       await logout();
+      dispatch({type:"log out"});
       navigate('/login');
     }
     catch{
